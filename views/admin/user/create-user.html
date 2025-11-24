@@ -1,34 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "admin/base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create User</title>
-</head>
+{% block title %}
+<title>Create User</title>
+{% endblock title %}
 
-<body>
-    <h1>Create User</h1>
-    <form action="" method="post">
-        isAdmin: <input type="checkbox" name="isAdmin" id="isAdmin" value="ADMIN">
-        <br />
+{% block body %}
+<h1>Create User</h1>
+<form action="" method="post">
+    isAdmin: <input type="checkbox" name="isAdmin" id="isAdmin" value="ADMIN">
+    <br />
 
-        {% if data.username %}
-        username: <input type="text" name="username" id="usernameInput" value="{{data.username}}">
-        {% else %}
-        username: <input type="text" name="username" id="usernameInput">
-        {% endif %}
+    {% if data.username %}
+    username: <input type="text" name="username" id="usernameInput" value="{{data.username}}">
+    {% else %}
+    username: <input type="text" name="username" id="usernameInput">
+    {% endif %}
 
-        <br />
-        password: <input type="password" name="password" id="passwordInput">
-        <br />
-        confirm password: <input type="password" name="confirmPassword" id="confirmInput">
-        <br />
-        <button type="submit">Submit</button>
-    </form>
-    <pre>
-        {{errors|dump}}
-    </pre>
-</body>
-
-</html>
+    <br />
+    password: <input type="password" name="password" id="passwordInput">
+    <br />
+    confirm password: <input type="password" name="confirmPassword" id="confirmInput">
+    <br />
+    <button type="submit">Submit</button>
+</form>
+<pre>
+    {{errors|dump}}
+</pre>
+{% endblock body %}

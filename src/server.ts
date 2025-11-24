@@ -18,6 +18,8 @@ nunjucks.configure(path.join(__dirname, "..", "views"), {
   express: app,
 });
 
+app.use("/static", express.static(path.join(__dirname, "..", "static")))
+
 app.use(express.urlencoded());
 
 app.use("/admin/auth", authRouter);
