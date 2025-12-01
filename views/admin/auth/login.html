@@ -1,15 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOGIN</title>
-</head>
-<body>
-    <form action="" method="post">
-        username: <input type="text" name="username" id="username">
-        password: <input type="password" name="password" id="password">
-        <button type="submit">LOGIN</button>
-    </form>
-</body>
-</html>
+{% extends "admin/base.html" %}
+
+{% block title %}Login{% endblock title %}
+
+{% block body %}
+<form action="/admin/auth/login" method="post">
+
+    {% if errors %}
+    error: {{errors.message}} <br />
+    {% endif %}
+    
+    username:
+    {% if errors %}
+    <input type="text" name="username" id="username" value="{{data.username}}">
+    {% else %}
+    <input type="text" name="username" id="username">
+    {% endif %}
+
+    password: <input type="password" name="password" id="password">
+    <button type="submit">LOGIN</button>
+</form>
+{% endblock body %}

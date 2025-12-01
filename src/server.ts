@@ -5,6 +5,8 @@ import dashboardRouter from "./modules/admin/dashboard/dashboard-routes";
 import userRouter from "./modules/admin/user/user-routes";
 import dotenv from "dotenv";
 import path from "path";
+import session from "express-session";
+import { isAuthenticated } from "./core/middleware/auth-middleware";
 
 dotenv.config({
   path: path.resolve(__dirname, "..", ".env"),
@@ -21,9 +23,13 @@ nunjucks.configure(path.join(__dirname, "..", "views"), {
 app.use("/static", express.static(path.join(__dirname, "..", "static")))
 
 app.use(express.urlencoded());
+app.use(session({
+  secret: process.env["SECRET_KEY"],
+  cookie: { maxAge: 1000 * 60 * 60 * 24 }
+}));
 
 app.use("/admin/auth", authRouter);
-app.use("/admin/user", userRouter);
+app.use("/admin/user", isAuthenticated, userRouter);
 app.use("/admin", dashboardRouter);
 
 
