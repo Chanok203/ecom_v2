@@ -1,6 +1,5 @@
 import { hashPassword } from "../../../core/utils/hash";
 import { Role } from "../../../generated/prisma/enums";
-import { prisma } from "../../../core/prisma";
 
 export const createUser = async (
   username: string,

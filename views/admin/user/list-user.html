@@ -1,0 +1,34 @@
+{% extends "admin/dashboard/dashboard.html" %}
+
+{% block title %}User{% endblock title %}
+
+{% block content %}
+<h2>User List</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>#ID</th>
+            <th>USERNAME</th>
+            <th>ROLE</th>
+            <th>ACTION</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        {% for user in userList %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.role }}</td>
+            <td>
+                <a href="#">edit</a>
+                <a href="#">delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+
+{% endblock content %}

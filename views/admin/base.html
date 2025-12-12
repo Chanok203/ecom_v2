@@ -10,6 +10,13 @@
 </head>
 <body>
 
+    {% block header %}
+    <nav>
+        Welcome, {{ user.username }}
+        <a href="/admin/auth/logout">logout</a>
+    </nav>
+    {% endblock header %}
+
     {% block body %}
     {% endblock body %}
     
