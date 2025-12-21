@@ -58,8 +58,21 @@ export const listUser_GET = async (req: Request, res: Response) => {
       role: true,
     },
   });
-  
+
   res.render("admin/user/list-user.html", {
     userList: userList,
   });
+};
+
+export const deleteUser_POST = async (req: Request, res: Response) => {
+  try {
+    const userId = parseInt(req.params.userId);
+    await prisma.user.delete({ where: { id: userId } });
+    if (req.session.user.id === userId) {
+      return res.redirect("/admin/auth/logout");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+  res.redirect("/admin/user");
 };

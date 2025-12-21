@@ -6,6 +6,8 @@ dotenv.config({
   path: path.resolve(__dirname, "..", ".env"),
 });
 
+import "./core/prisma";
+
 const main = async () => {
   const username = "chanok";
   const password = "1234";

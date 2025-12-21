@@ -30,6 +30,7 @@ export const login_POST = async (req: Request, res: Response) => {
     return;
   }
   const userData = {
+    id: user.id,
     username: user.username,
     role: user.role,
   };

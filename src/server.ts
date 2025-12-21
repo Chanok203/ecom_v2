@@ -13,6 +13,7 @@ dotenv.config({
 });
 
 import "./core/prisma";
+import { sessionStore } from "./core/session";
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use("/static", express.static(path.join(__dirname, "..", "static")))
 
 app.use(express.urlencoded());
 app.use(session({
+  store: sessionStore,
   secret: process.env["SECRET_KEY"],
   cookie: { maxAge: 1000 * 60 * 60 * 24 },
   resave: false,

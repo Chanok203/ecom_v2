@@ -5,6 +5,8 @@
 {% block content %}
 <h2>User List</h2>
 
+<a href="/admin/user/createuser">create new user</a>
+
 <table>
     <thead>
         <tr>
@@ -23,7 +25,10 @@
             <td>{{ user.role }}</td>
             <td>
                 <a href="#">edit</a>
-                <a href="#">delete</a>
+                <form action="/admin/user/{{user.id}}/delete" method="post"
+                    onsubmit="return confirm('คุณแน่ในใช่ไหมว่าจะลบผู้ใช้ ({{user.username}})')">
+                    <input type="submit" value="delete">
+                </form>
             </td>
         </tr>
         {% endfor %}
