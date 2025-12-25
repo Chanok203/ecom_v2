@@ -10,11 +10,11 @@ import "./core/prisma";
 
 const main = async () => {
   const username = "chanok";
-  const password = "1234";
-  const role = "ADMIN";
+  const password = "chanok";
+  const isAdmin = true;
 
   try {
-    const user = await createUser(username, password, role);
+    const user = await createUser(username, password, isAdmin);
     console.log(user);
   } catch (error) {
     console.log(error);

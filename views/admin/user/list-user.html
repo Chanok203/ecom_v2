@@ -22,11 +22,26 @@
         <tr>
             <td>{{ user.id }}</td>
             <td>{{ user.username }}</td>
-            <td>{{ user.role }}</td>
             <td>
-                <a href="#">edit</a>
+                {% if user.isAdmin %}
+                <form action="/admin/user/{{user.id}}/edit" method="get"
+                    onsubmit="return confirm('คุณต้องการเปลี่ยน Role เป็น USER ใช่ไหม?')"
+                >
+                    <input type="hidden" name="isAdmin" value="false">
+                    <input type="submit" value="ADMIN">
+                </form>
+                {% else %}
+                <form action="/admin/user/{{user.id}}/edit" method="get"
+                    onsubmit="return confirm('คุณต้องการเปลี่ยน Role เป็น ADMIN ใช่ไหม?')"
+                >
+                    <input type="hidden" name="isAdmin" value="true">
+                    <input type="submit" value="USER">
+                </form>
+                {% endif %}
+            </td>
+            <td>
                 <form action="/admin/user/{{user.id}}/delete" method="post"
-                    onsubmit="return confirm('คุณแน่ในใช่ไหมว่าจะลบผู้ใช้ ({{user.username}})')">
+                    onsubmit="return confirm('คุณแน่ใจใช่ไหมว่าจะลบผู้ใช้ ({{user.username}})')">
                     <input type="submit" value="delete">
                 </form>
             </td>

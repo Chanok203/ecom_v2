@@ -7,7 +7,6 @@ export const createUser_GET = (req: Request, res: Response) => {
 
 export const createUser_POST = async (req: Request, res: Response) => {
   const { username, password, confirmPassword, isAdmin } = req.body;
-  const role = "ADMIN" === isAdmin ? "ADMIN" : "BUYER";
 
   let errors: any = {};
   let data: any = {};
@@ -36,7 +35,7 @@ export const createUser_POST = async (req: Request, res: Response) => {
   }
 
   try {
-    const user = await createUser(username, password, role);
+    const user = await createUser(username, password, isAdmin == "ADMIN");
     res.redirect("/admin");
   } catch (error) {
     console.log(error);
@@ -55,7 +54,7 @@ export const listUser_GET = async (req: Request, res: Response) => {
     select: {
       id: true,
       username: true,
-      role: true,
+      isAdmin: true,
     },
   });
 
@@ -76,3 +75,24 @@ export const deleteUser_POST = async (req: Request, res: Response) => {
   }
   res.redirect("/admin/user");
 };
+
+export const editUser_GET = async (req: Request, res: Response) => {
+  try {
+    const userId = parseInt(req.params.userId);
+    const isAdmin = req.query.isAdmin == 'true'
+    await prisma.user.update({
+      where: {
+        id: userId
+      },
+      data: {
+        isAdmin: isAdmin,
+      }
+    });
+    if (req.session.user.id === userId) {
+      return res.redirect("/auth/logout");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+  res.redirect("/admin/user");
+}

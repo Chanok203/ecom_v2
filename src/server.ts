@@ -1,12 +1,8 @@
 import express from "express";
 import nunjucks from "nunjucks";
-import authRouter from "./modules/admin/auth/auth-routes";
-import dashboardRouter from "./modules/admin/dashboard/dashboard-routes";
-import userRouter from "./modules/admin/user/user-routes";
 import dotenv from "dotenv";
 import path from "path";
 import session from "express-session";
-import { isAuthenticated } from "./core/middleware/auth-middleware";
 
 dotenv.config({
   path: path.resolve(__dirname, "..", ".env"),
@@ -14,6 +10,9 @@ dotenv.config({
 
 import "./core/prisma";
 import { sessionStore } from "./core/session";
+import adminRouter from "./modules/admin/routes";
+import sellerRouter from "./modules/seller/routes";
+import authRouter from "./modules/auth/auth-routes";
 
 const app = express();
 
@@ -35,9 +34,9 @@ app.use(session({
   rolling: true,
 }));
 
-app.use("/admin/auth", authRouter);
-app.use("/admin/user", isAuthenticated, userRouter);
-app.use("/admin", isAuthenticated, dashboardRouter);
+app.use("/auth", authRouter);
+app.use("/admin", adminRouter);
+app.use("/seller", sellerRouter);
 
 app.listen(3000, "localhost", () => {
   console.log("SERVER IS RUNNING");

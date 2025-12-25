@@ -1,10 +1,9 @@
 import { hashPassword } from "../../../core/utils/hash";
-import { Role } from "../../../generated/prisma/enums";
 
 export const createUser = async (
   username: string,
   password: string,
-  role: Role
+  isAdmin: boolean,
 ) => {
   const user = await prisma.user.findUnique({ where: { username: username } });
 
@@ -16,7 +15,7 @@ export const createUser = async (
     data: {
       username: username,
       passwordHash: await hashPassword(password),
-      role: role,
+      isAdmin: isAdmin,
     },
   });
 
