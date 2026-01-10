@@ -11,7 +11,6 @@ dotenv.config({
 import "./core/prisma";
 import { sessionStore } from "./core/session";
 import adminRouter from "./modules/admin/routes";
-import sellerRouter from "./modules/seller/routes";
 import authRouter from "./modules/auth/auth-routes";
 
 const app = express();
@@ -36,7 +35,6 @@ app.use(session({
 
 app.use("/auth", authRouter);
 app.use("/admin", adminRouter);
-app.use("/seller", sellerRouter);
 
 app.listen(3000, "localhost", () => {
   console.log("SERVER IS RUNNING");

@@ -1,12 +1,12 @@
-import { createUser } from "./modules/admin/user/user-service";
+import { createUser } from "../modules/admin/user/user-service";
 import dotenv from "dotenv";
 import path from "path";
 
 dotenv.config({
-  path: path.resolve(__dirname, "..", ".env"),
+  path: path.resolve(__dirname, "..", "..", ".env"),
 });
 
-import "./core/prisma";
+import "../core/prisma";
 
 const main = async () => {
   const username = "chanok";
